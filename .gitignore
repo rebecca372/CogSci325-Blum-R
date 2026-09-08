@@ -1,0 +1,10 @@
+# History files 
+
+Rhistory 
+Repp history 
+
+# Session Data files 
+RData
+RDataTmp
+scratch/*
+*.DS_Store 
