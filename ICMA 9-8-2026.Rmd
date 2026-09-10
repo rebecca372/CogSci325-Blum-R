@@ -19,15 +19,17 @@ plot(cars)
  I see that in the plot as speed goes up so does distance 
  
  # ICMA 9-10-26
- ```{r}
+ 
+```{r}
  ggplot(data=penguins, mapping = aes(x= flipper_length_mm, 
-                                    y= bill_length_mm))+ 
-                                    
- geom_point()
- ```
- 
- ```{r}
- 
- ```
+                                    y= bill_length_mm))+ geom_point()
 
+```
+
+```{r}
+PlantGrowth
+ggplot(data=PlantGrowth, mapping=aes(y=weight, x=group)) + geom_point(alpha=0.5) + stat_summary(geom = "pointrange", fun.data = "mean_se",color="purple")
+
+```
+This is tidy data! 
 
