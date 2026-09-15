@@ -53,6 +53,6 @@ flights |>
 ```
 ```{r}
 flights |> 
-    filter (arr_delay > 120 & dep_delay == 0) |> arrange(desc(arr_delay)) |> 
+    filter (arr_delay > 120 & dep_delay >= 0) |> arrange(desc(arr_delay)) |> 
     arrange(dep_delay)
 ```
