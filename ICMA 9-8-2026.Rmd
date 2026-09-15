@@ -9,14 +9,16 @@ output: html_notebook
 
 library("tidyverse")
 library("palmerpenguins")
+library("nycflights13")
 ```
 
-ICMA September 3 2026
+ # ICMA September 3 2026
+
 ```{r}
 # here I'm plotting data from cars 
 plot(cars)
 ```
- I see that in the plot as speed goes up so does distance 
+ # I see that in the plot as speed goes up so does distance 
  
  # ICMA 9-10-26
  
@@ -33,3 +35,24 @@ ggplot(data=PlantGrowth, mapping=aes(y=weight, x=group)) + geom_point(alpha=0.5)
 ```
 This is tidy data! 
 
+ # ICMA 9-15-2026
+
+```{r}
+  PlantGrowth |> 
+  ggplot(aes(y=weight, x = group)) +  
+  geom_boxplot(width = 0.2)
+``` 
+```{r} 
+glimpse(flights)
+flights |> 
+  filter(month == 1 & day == 1)
+  flights |> 
+    arrange(desc(month))
+  flights |> 
+      distinct(origin,dest)
+```
+```{r}
+flights |> 
+    filter (arr_delay > 120 & dep_delay == 0) |> arrange(desc(arr_delay)) |> 
+    arrange(dep_delay)
+```
