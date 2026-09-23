@@ -1,0 +1,54 @@
+---
+title: "Assignment 1"
+author: Rebecca Blum
+output:html_notebook
+---
+
+```{r}
+#| echo: false
+#| message: false
+
+library("tidyverse")
+```
+
+# The Data
+
+The data being used in this assignment is Motor Trend Car Road Tests (from the mtcars package). The data was extracted from the 1974 Motor Trend US magazine.
+
+The data comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles from the 1973-74 models.
+
+The Motor Trend Car Road Tests data frame has 32 rows and 11 columns
+
+# Research Questions
+
+1.  Is engine size related to gas mileage?
+
+2.  Do automatic and manual transmission cars have different gas mileage?
+
+# Plots
+
+```{r}
+mtcars |> 
+  ggplot(aes(x = disp, y = mpg)) + 
+  geom_point(color = "lightblue", size = 2, alpha = 0.75) + 
+  geom_smooth(method = "lm", colour = "black") +
+  labs(x = "Engine Size (cubic inches)",  
+       y = "Miles per Gallon",
+       title = "Relationship Between Engine Size and Gas Mileage")
+```
+
+```{r}
+mtcars |> 
+  group_by(am) |> 
+  summarise(mean_mpg = mean(mpg)) |> 
+  ggplot(aes(y = mean_mpg, x = am)) +
+  geom_point(color = "red",size = 2) + 
+  labs(y = "Average Miles per Gallon",            x = "Transmission (0 = Automatic, 1 = Manual", 
+      title = "Difference in Gas Milage for Automatic vs Manual Cars")
+
+
+```
+
+# Conclusion
+
+There was a difference in gas mileage for automatic and manual transmission cars and it was large. The average mileage of manual cars was about 7 mpg higher than automatic cars. There was also a strong relation between engine size and gas mileage, with cars that had larger engines tending to have lower gas mileage.
