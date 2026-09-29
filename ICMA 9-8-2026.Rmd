@@ -112,3 +112,9 @@ delay_summary <- flights |>
   summarize(mean_delay = mean(arr_delay, na.rm = TRUE), 
   n_flights = n())
 ```
+
+## ICMA 9-29-2026
+
+```{r}
+read.csv("Week5-1_ClassData.csv") 
+```
