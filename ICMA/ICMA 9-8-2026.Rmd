@@ -11,7 +11,11 @@ output: html_notebook
 library("tidyverse")
 library("palmerpenguins")
 library("nycflights13")
-library(dplyr)
+library("dplyr")
+library(readxl)
+library(knitr)
+library(readxl)
+library(ggplot2)
 ```
 
 ## ICMA September 3 2026
@@ -157,9 +161,141 @@ billboard |>
 
 ```
 
-
 ## ICMA 9-29-2026
 
 ```{r}
 read_csv("Week5-1_ClassData.csv")
 ```
+
+## ICMA 10-8-2026
+
+ICMA question: what's the difference between these two code chunks? Are the outputs the same? \\ The difference is the command mapping command used in the first chunk that is absent in the second chunk. The outputs are the same.
+
+```{r}
+mpg |> 
+  ggplot(mapping = aes(y = hwy, x = displ, color = manufacturer)) + 
+  geom_point()
+```
+
+```{r}
+mpg |> 
+  ggplot(aes(y = hwy, x = displ, color = manufacturer)) + 
+  geom_point()
+```
+
+ICMA question: what are these warnings about and why should we worry about them? **Answer**:These warnings are referring to the fact that in the shape palette you can only use 6 discrete values. This is a concern because if there are more than 6 data points there may be an error stating missing data if there are more then 6 data points and you are using shapes to represent them. Missing data could cause the graph to not be representative of the findings and the data at large.
+
+```{r}
+mpg |> 
+  ggplot(aes(y = hwy, x = displ, shape = manufacturer)) + 
+  geom_point()
+#shows the the warning about the limit of 6 discrete values 
+```
+
+Change the color of the line to something other than the default blue
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(color='aquamarine')
+#changed color of the line to 'aquamarine' 
+```
+## ICMA 10-13-2026
+
+
+Add a `facet_wrap`
+
+```{r}
+mpg |> 
+  ggplot(aes(x = displ, y = hwy)) + 
+  geom_point() +
+  facet_wrap(~cyl)
+```
+
+Set the number of columns to 4
+```{r}
+mpg |> 
+  ggplot(aes(x = displ, y = hwy)) + 
+  geom_point() +
+  facet_wrap(~cyl, ncol=4)
+```
+
+Set the number of rows to 4
+```{r}
+mpg |> 
+  ggplot(aes(x = displ, y = hwy)) + 
+  geom_point()  +
+  facet_wrap(~cyl, nrow=4)
+```
+
+```{r}
+ggplot(mpg,aes(x=drv,fill=class)) +
+  geom_bar(position='stack')
+
+ggplot(mpg,aes(x=drv,fill=class)) +
+  geom_bar(position='dodge')
+
+ggplot(mpg,aes(x=drv,fill=class)) +
+  geom_bar(position='fill')
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = 'jitter')
+```
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_jitter(width = 0.05,height=0.05)
+```
+
+Exercise: facet_grid (put this section in your ICMA file)
+
+We want to add a facet using `facet_grid` that presents `drv` as rows and `cyl` as columns.
+
+Do that below (if you need a hint, look at the supplement for Slide 14)
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  facet_grid(drv~cyl)
+```
+
+Let's play with the x and y scales. First, call up the face_grid documentation.
+
+```{r}
+?facet_grid
+```
+
+What does the "scales" option do and what values does it take?
+
+All scales are shared are across all facets with the default "fixed". They also can vary across rows with ("free_x"), columns ("free_y"), or both rows and columns ("free"). There are many values that the scale option allows for. 
+
+Below, experiment with facet_grid option, `scales = "free_x"`, `scales = "free_y"`, and `scales = 'free'`, and `scales = 'fixed'`.  Compare with the code chunk above without scales being specified
+
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +  
+  facet_grid(drv ~ cyl,scales = "fixed")
+
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +  
+  facet_grid(drv ~ cyl,scales ="free")
+
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +  
+  facet_grid(drv ~ cyl, scales = "free_x")
+
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +  
+  facet_grid(drv ~ cyl, scales = "free_y")
+
+
+```
+
+Answer the following questions:
+
+What effect does each option have on the plot? It allows different part of the data to be highlighted. 
+Why might you want to use one of these options? Depending on the option its visually easier to compare clumps of data. 
+What is the default `scales` value? The default is "fixed". 
