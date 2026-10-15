@@ -11,11 +11,7 @@ output: html_notebook
 library("tidyverse")
 library("palmerpenguins")
 library("nycflights13")
-library("dplyr")
-library(readxl)
-library(knitr)
-library(readxl)
-library(ggplot2)
+library(dplyr)
 ```
 
 ## ICMA September 3 2026
@@ -117,88 +113,8 @@ delay_summary <- flights |>
   n_flights = n())
 ```
 
-## ICMA 9-24-2026
-
-```{r}
-billboard_long <- billboard |> 
-  pivot_longer(cols = wk1:wk76,
-               names_to = "week",
-               values_to = "rank") |> 
-  head(10)
-billboard |> 
-  filter(track == "Baby Don't Cry(Keep...")
-```
-
-```{r}
-billboard_long_dropna <- billboard |> 
-  pivot_longer(cols = wk1:wk76,
-               names_to = "week",
-               values_to = "rank",
-               values_drop_na = TRUE)
-billboard_long_dropna |> 
-  filter(track == "Baby Don't Cry(Keep..." & week == "wk8")
-billboard_long_dropna %>%
-  pivot_wider(names_from = week,
-              values_from = rank)
-```
-
-```{r}
-billboard |> 
-  pivot_longer(cols = starts_with("wk"),
-               names_to = "week",
-               names_prefix = "wk",
-               values_to = "rank",
-               values_drop_na = TRUE)
-billboard |> 
-  separate(col = date.entered, 
-           into = c("year","month","day"),            sep = ","
-           ) |> 
-  unite(col = date_entered,
-        year:day,
-        sep = ",", 
-        remove = TRUE
-        )
-
-```
-
-
 ## ICMA 9-29-2026
 
 ```{r}
-read_csv("Week5-1_ClassData.csv")
-```
-## ICMA 10-8-2026
-ICMA question: what's the difference between these two code chunks? Are the outputs the same?
-\\ The difference is the command mapping command used in the first chunk that is absent in the second chunk. The outputs are the same. 
-```{r}
-mpg |> 
-  ggplot(mapping = aes(y = hwy, x = displ, color = manufacturer)) + 
-  geom_point()
-```
-
-```{r}
-mpg |> 
-  ggplot(aes(y = hwy, x = displ, color = manufacturer)) + 
-  geom_point()
-```
-
-
-ICMA question: what are these warnings about and why should we worry about them?
-**Answer**:These warnings are referring to the fact that in the shape palette you can only use 6 discrete values. This is a concern because if there are more than 6 data points there may be an error stating missing data if there are more then 6 data points and you are using shapes to represent them. Missing data could cause the graph to not be representative of the findings and the data at large. 
-
-```{r}
-mpg |> 
-  ggplot(aes(y = hwy, x = displ, shape = manufacturer)) + 
-  geom_point()
-#shows the the warning about the limit of 6 discrete values 
-```
-
-
-Change the color of the line to something other than the default blue
-
-```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point(aes(color = class)) + 
-  geom_smooth(color='aquamarine')
-#changed color of the line to 'aquamarine' 
+read.csv("Week5-1_ClassData.csv") 
 ```
