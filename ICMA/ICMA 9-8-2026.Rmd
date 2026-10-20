@@ -349,5 +349,34 @@ diamonds |>
   ggplot(aes(x = carat)) +
   geom_boxplot(outlier.colour = 'red')
 ```
+## ICMA 10-20-2026
 
+ICMA Exercise (last class): two variables
+
+Note: I have done some of these in the previous ICMA but decided to copy and paste them into the new ICMA I didn't finish all of them previously just one I believe. 
+
+ICMA Exercise: two variables
+
+Using the `mpg` dataset plot a frequency polygon of the `hwy` variable, with the `class` variable mapped to the color aesthetic
+
+```{r}
+ggplot(mpg, aes(x = hwy)) + 
+  geom_freqpoly(aes(color = class), binwidth = 2, linewidth = 0.75)
+```
+
+ICMA Exercise: histograms vs. boxplots
+
+Below I have plotted a histograms and boxplots of the same data. Both plots show the variation of the `carat` variable from the `diamonds` data set.
+
+Compare and contrast the two plots. What kind of information is highlighted by each? What kind of information is highlighted by both? The histogram shows the full distribution of the data, it demonstrates the peaks and how the data is skewed to the left. The box plot shows that most of the data in the middle region but you don't see the details of that information but it shows the outliers which the histogram does not show. Both plots show the general distribution of the data but in varying levels of detail. 
+
+```{r}
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(binwidth = 0.1)
+```
+```{r}
+diamonds |> 
+  ggplot(aes(x = carat)) +
+  geom_boxplot(outlier.colour = 'red')
+```
 
