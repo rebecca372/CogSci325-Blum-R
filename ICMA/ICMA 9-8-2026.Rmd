@@ -442,4 +442,53 @@ ggplot(aes(x = cut, y = average_price)) +
   scale_y_continuous(labels = label_currency()) +
   labs(y= "Here is some super long AXIS title")
 ```
-  
+
+
+## ICMA 10-29-2026
+ICMA Exercise 1
+
+Let's go back to using our `str_` functions on our `fruit` dataset but this time we'll use more complex regular expressions
+
+- filter to keep only names that begin with the letter f
+- filter to keep only names that begin or end with the letter a
+- filter to keep only names that start with a vowel
+- filter to keep only names that start with a consonant, followed by a vowel
+
+```{r}
+str_view(fruit, "^f") 
+
+```
+```{r}
+str_view(fruit, "^a")
+str_view(fruit, "a$")
+
+str_view(fruit, "^a|a$")
+# does the same thing just in different notation 
+```
+```{r}
+str_view(fruit, "^[aeiou]")
+```
+```{r}
+str_subset(fruit, "^[^aeiou][aeiou]")
+str_subset(fruit, "^[^aeiou]")
+```
+ICMA Exercise 2:
+
+What do these regexes mean? Use words to describe the meaning, then check in R by applying it to the `fruit` vector, `words` vector, or the `babynames` dataset 
+
+- `^.*$` : The whole string from start to finish. ^. means start and *$ means the end which in its totality is the entire string. 
+- `[abcdefg]+` One of these letters repeated one or more times. 
+- `[abcdefg][zyxwvuts]` A word starting with one of the first set of letters which is followed by a letter from the second set of letters. 
+- `\..\..\..` Period followed by any character that repeats three times. 
+- `(.)\1\1\1` Matches any single character that repreated four times in a row. 
+
+- `(.)[a-z](.).*\2\1` Any character, [a-z], any character 0 or more times. Match the second character and match the first character. 
+
+NOTE: if using babynames, use the distinct_baby_names vector we created before or filter the babynames dataset for years > 2000
+
+NOTE: when applying these remember that `\1` needs to be converted to `\\1` when it appears within in quotation marks (" ")
+
+```{r}
+str_view(fruits,"^. *$" )
+```
+
