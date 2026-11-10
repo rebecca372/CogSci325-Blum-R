@@ -492,3 +492,85 @@ NOTE: when applying these remember that `\1` needs to be converted to `\\1` when
 str_view(fruits,"^. *$" )
 ```
 
+# ICMA 11-10-2026
+
+ICMA 1
+
+Then, rewrite our original mutate() call with the new function
+
+```{r}
+df |> mutate(
+  a = rescale01(a),
+  b = rescale01(b),
+  c = rescale01(c),
+  d = rescale01(d)
+)
+```
+
+ICMA 2
+
+Turn the below code snippets into a single function.
+
+To start, ask yourself what is each line trying to do, what is common across each line, and what varies?
+
+x / sum(x, na.rm = TRUE)
+y / sum(y, na.rm = TRUE)
+z / sum(z, na.rm = TRUE)
+
+
+```{r}
+flk <- function(x) {
+  x / sum(x, na.rm = TRUE)
+}
+flk(c(1,2,3,4,5))
+```
+
+ICMA 3
+
+Using the nycflights database, create a summary table using `summarise` and `across` that shows the median and total number of missing values for the variables, `dep_delay` and `airtime`
+
+NOTE: You will need to pass the na.rm option to the functions you call in `summarise`!
+
+```{r}
+flights |>
+  summarise(across(c(dep_delay,air_time), function(x) median(x,na.rm = TRUE)))
+```
+
+ICMA 4
+
+Create a function that takes a dataset and variable as input and creates a summaray table of the the `mean`, `median`, `max`, and `min` values of that variable.
+
+Test is out on the `diamonds` or `nycflights` dataset
+
+HINT: think about whether you need to use direct or indirect reference here
+
+
+```{r}
+
+```
+
+ICMA 5 
+
+Create a function from these code snippets:
+
+round(x / sum(x, na.rm = TRUE) * 100, 1)
+round(y / sum(y, na.rm = TRUE) * 100, 2)
+round(z / sum(z, na.rm = TRUE) * 100, 4)
+
+
+What does this function do?
+
+ICMA 6 
+
+Create a function called `count_propt` that is like `count` but returns both the counts of any variable, and its proportion of the total number of entries.
+
+The last two line in the chunk below show how this code should be able to be used
+
+As a bonus, allow the function to take an argument that specifies how many significant digits to round the proportion to. 
+
+```{r}
+
+
+flights |> count_prop(carrier)
+flights |> count_prop(dest)
+```
