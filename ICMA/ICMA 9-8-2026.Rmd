@@ -574,3 +574,25 @@ As a bonus, allow the function to take an argument that specifies how many signi
 flights |> count_prop(carrier)
 flights |> count_prop(dest)
 ```
+
+# ICMA 11-12-2026
+
+ICMA 1:
+
+1. Make a copy of the flights data set called `flights_mod` by filtering all rows where `arr_delay` is not NA.
+
+2. Using a base R for-loop, to directly modify each `dep_delay` cell by it's corresponding `arr_delay` cell times * 1.43
+
+```{r}
+flights_mod <- flights |> filter(!is.na(arr_delay))
+flights_mod 
+flights_mod |> filter(is.na(arr_delay))
+flights_mod |> select(dep_delay) |> head() 
+for (i in seq_along(flights_mod [["dep_delay"]])) {
+  flights_mod [["dep_delay"]][[i]] = flights_mod [["arr_delay"]][[i]] * 1.43 
+} 
+
+flights_mod |> select(dep_delay) |> head()
+
+```
+
