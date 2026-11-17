@@ -1,7 +1,16 @@
 ---
 title: "D2SC ICMAs"
 author: "Rebecca Blum"
-output: html_notebook
+date: 11-17-2026
+output:
+  word_document: default
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false 
+  pdf_document: default
 ---
 
 ```{r}
@@ -16,6 +25,9 @@ library(readxl)
 library(knitr)
 library(readxl)
 library(ggplot2)
+
+install.packages('tinytex')
+tinytex::install_tinytex()
 ```
 
 ## ICMA September 3 2026
@@ -594,5 +606,70 @@ for (i in seq_along(flights_mod [["dep_delay"]])) {
 
 flights_mod |> select(dep_delay) |> head()
 
+```
+## ICMA 11-17-2026
+
+ICMA 1:
+
+1. Make a copy of the flights data set called `flights_mod` by filtering all rows where `arr_delay` is not NA.
+
+2. Using a base R for-loop, to directly modify each `dep_delay` cell by it's corresponding `arr_delay` cell times * 1.43
+
+```{r}
+flights_mod <- flights |> filter(!is.na(arr_delay))
+
+for (i in seq_along(flights_mod)) {
+  flights[["dep_delay"]][[i]] <- flights[["arr_delay"]][[i]] * 1.43
+}
+```
+
+
+ICMA 3:
+
+Merge the two datasets using left, right, inner, or full join. They should all give the same result. 
+
+```{r}
+experiment_2_data <- tribble(
+  ~participant_id, ~year, ~accuracy,
+  "P01",           2025,      0.92,
+  "P02",           2025,      0.85,
+  "P03",           2025,      0.96,
+  "P04",           2025,      0.78,
+  "P05",           2025,      0.89,
+  "P06",           2026,      0.83,
+  "P07",           2026,      0.94,
+  "P08",           2026,      0.81,
+  "P09",           2026,      0.90,
+  "P10",           2026,      0.87
+)
+
+demographics_e2 <- tribble(
+  ~participant_id, ~year, ~first_language,
+  "P01",           2001, "English",
+  "P02",           1998, "Spanish",
+  "P03",           2003, "English",
+  "P04",           1996, "Mandarin",
+  "P05",           2002, "English",
+  "P06",           1994, "Spanish",
+  "P07",           2000, "Korean",
+  "P08",           1999, "English",
+  "P09",           2004, "Mandarin",
+  "P10",           1997, "English"
+)
+
+left_join(experiment_2_data,demographics_e2, by = "participant_id")
+```
+
+```{r}
+diamonds |> summarise(mean_price = mean(price))
+```
+The **mean price** of *diamonds* is $`r round(`d_mean_price')
+
+```{r}
+#| echo: false 
+#| include: false
+#| fig-cap: "Chick Weight Over Time"
+ggplot(aes(y= weight, x = time, group = Chick)) + 
+  geom_line()
 ```
 
